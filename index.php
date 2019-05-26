@@ -1,5 +1,5 @@
 <?php
-
+session_start();
 //Front Controller
 
 ini_set('display_errors', 1);

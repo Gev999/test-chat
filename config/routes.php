@@ -1,10 +1,10 @@
 <?php
 
 return array(
-    'home'=>'home/index',
-    'product/([0-9]+)'=>'product/view/$1',
-    'catalog/([0-9]+)'=>'catalog/category/$1',
-    'catalog'=>'catalog/index',
+    'user/signin'=>'user/signin',
     'user/register'=>'user/register',
+    'user/page'=> 'user/page',
+    'user/logout'=> 'user/logout',
+    'home'=>'home/index',
     '' => 'home/index'
 );
