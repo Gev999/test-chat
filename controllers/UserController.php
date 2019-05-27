@@ -8,7 +8,7 @@ class UserController {
         }
         else {
             header('Location: /');
-            exit(1);
+            
         }
         return true;
     }
@@ -16,7 +16,7 @@ class UserController {
     public function actionRegister() {
         if (isset($_SESSION['logged_in']) && $_SESSION['logged_in']) {
             header('Location: /user/page');
-            exit(1);
+            
         }
         $hasErr = false;
         $login='';
@@ -33,8 +33,9 @@ class UserController {
 
             if ($hasErr==false) {
                 $_SESSION['logged_in'] = true;
+                $_SESSION['username'] = $login;
                 header('Location: /user/page');
-                exit(1);
+                
             }
         }
         require_once(Root.'/views/User/register.php');
@@ -44,7 +45,7 @@ class UserController {
     public function actionSignin() {
         if (isset($_SESSION['logged_in']) && $_SESSION['logged_in']) {
             header('Location: /user/page');
-            exit(1);
+            
         }
         $hasErr = false;
         $login = '';
@@ -53,6 +54,7 @@ class UserController {
             $hasErr = User::checkUserData($login, $pass);
             if ($hasErr==false) {
                 $_SESSION['logged_in'] = true;
+                $_SESSION['username'] = $login;
                 header('Location: /user/page');
             }
         }
@@ -61,10 +63,28 @@ class UserController {
     }
 
     public function actionLogout() {
-        if (isset($_SESSION['logged_in']) && $_SESSION['logged_in']) {
-            $_SESSION['logged_in'] = false;
-        }
-        header('Location: /');
-        exit(1);
+        session_destroy();
+        header('Location: /'); 
     }
+
+    public function actionFetchUser() {
+        echo User::fetchUsers();
+        return true;
+    }
+
+    public function actionUpdateLastActivity() {
+        User::updateLastActivity();
+        return true;
+    }
+
+    public function actionInsertChat() {
+        User::insertChat();
+        return true;
+    }
+
+    public function actionFetchUser_chat_history() {
+        User::fetch_user_chatHistory();
+        return true;
+    }
+
 }
